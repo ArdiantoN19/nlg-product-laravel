@@ -137,6 +137,9 @@ php artisan serve
 
 # In another terminal - Start Vite dev server
 npm run dev
+
+# OR just run this
+composer run dev
 ```
 
 Visit `http://localhost:8000` in your browser!
