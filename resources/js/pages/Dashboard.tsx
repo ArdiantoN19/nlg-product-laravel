@@ -80,12 +80,12 @@ export default function Dashboard({ products, flash }: DashboardProps) {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg p-6">
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-lg font-bold">Manage Products</h3>
-                            <button onClick={handleSync} className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition">
+                            <button onClick={handleSync} className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition cursor-pointer">
                                 🔄 Sync FakeStore API
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="mb-8 bg-gray-50 p-4 rounded border">
+                        <form onSubmit={handleSubmit} className="mb-8 bg-gray-50 p-4 rounded border border-gray-300">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label htmlFor="name" className='block text-sm font-medium text-gray-700'>Product Name</label>
@@ -111,7 +111,7 @@ export default function Dashboard({ products, flash }: DashboardProps) {
                                         id="description" 
                                         rows={3}
                                         placeholder="Enter product description..." 
-                                        className="w-full border-gray-300 rounded shadow-sm py-2.5 px-3 focus:border-blue-500 focus:ring-blue-500"
+                                        className="w-full border-gray-300 rounded shadow-sm py-2.5 px-3 focus:border-violet-500 focus:ring-violet-500"
                                         value={data.description} 
                                         onChange={e => setData('description', e.target.value)}
                                     ></textarea>
@@ -119,11 +119,11 @@ export default function Dashboard({ products, flash }: DashboardProps) {
                                 </div>
                             </div>
                             <div className="mt-4 flex gap-2">
-                                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                <button type="submit" className="px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 cursor-pointer">
                                     {editingMode ? 'Update Product' : 'Add Product'}
                                 </button>
                                 {editingMode && (
-                                    <button type="button" onClick={closeForm} className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">Cancel</button>
+                                    <button type="button" onClick={closeForm} className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 cursor-pointer">Cancel</button>
                                 )}
                             </div>
                         </form>
@@ -147,8 +147,8 @@ export default function Dashboard({ products, flash }: DashboardProps) {
                                             <td className="p-3">${product.price}</td>
                                             <td className="p-3">{product.stock}</td>
                                             <td className="p-3 flex gap-2">
-                                                <button onClick={() => handleEdit(product)} className="text-blue-600 hover:underline">Edit</button>
-                                                <button onClick={() => handleDelete(product.id)} className="text-red-600 hover:underline">Delete</button>
+                                                <button onClick={() => handleEdit(product)} className="text-violet-600 hover:underline cursor-pointer">Edit</button>
+                                                <button onClick={() => handleDelete(product.id)} className="text-red-600 hover:underline cursor-pointer">Delete</button>
                                             </td>
                                         </tr>
                                     ))}
@@ -159,7 +159,7 @@ export default function Dashboard({ products, flash }: DashboardProps) {
                         <div className="mt-4 flex gap-1">
                             {products.links.map((link, i) => (
                                 <button key={i} disabled={!link.url} onClick={() => router.get(link.url!)}
-                                    className={`px-3 py-1 border rounded ${link.active ? 'bg-blue-600 text-white' : 'bg-white text-gray-700'} disabled:opacity-50`}
+                                    className={`px-3 py-1 border rounded ${link.active ? 'bg-violet-600 text-white' : 'bg-white text-gray-700'} cursor-pointer disabled:opacity-50 disabled:cursor-no-drop`}
                                     dangerouslySetInnerHTML={{ __html: link.label }} />
                             ))}
                         </div>
