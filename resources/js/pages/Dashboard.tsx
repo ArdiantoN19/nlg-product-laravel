@@ -1,3 +1,4 @@
+import Alert from '@/lib/components/Alert';
 import { Head, useForm, router } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -13,10 +14,14 @@ interface DashboardProps {
     products: {
         data: IProduct[];
         links: { url: string | null; label: string; active: boolean }[];
+    },
+    flash: {
+        message: string;
+        error: string
     }
 }
 
-export default function Dashboard({ products }: DashboardProps) {
+export default function Dashboard({ products, flash }: DashboardProps) {
     const [editingMode, setEditingMode] = useState(false);
     const [currentId, setCurrentId] = useState<number | null>(null);
 
@@ -71,8 +76,8 @@ export default function Dashboard({ products }: DashboardProps) {
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <Alert {...flash}/>
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg p-6">
-                        
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-lg font-bold">Manage Products</h3>
                             <button onClick={handleSync} className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition">
@@ -91,12 +96,12 @@ export default function Dashboard({ products }: DashboardProps) {
                                 <div>
                                     <label htmlFor="price" className='block text-sm font-medium text-gray-700'>Price</label>
                                     <input type="number" id="price" placeholder="Price" className="w-full border-gray-300 rounded shadow-sm py-2.5 px-2"
-                                        value={data.price} onChange={e => setData('price', Number(e.target.value))} required />
+                                        value={data.price} onChange={e => setData('price', parseFloat(e.target.value))} required />
                                 </div>
                                 <div>
                                     <label htmlFor="stock" className='block text-sm font-medium text-gray-700'>Stock</label>
                                     <input type="number" id="stock" placeholder="Stock" className="w-full border-gray-300 rounded shadow-sm py-2.5 px-2"
-                                        value={data.stock} onChange={e => setData('stock', Number(e.target.value))} required />
+                                        value={data.stock} onChange={e => setData('stock', parseFloat(e.target.value))} required />
                                 </div>
                                 <div className="col-span-full"> 
                                     <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
@@ -127,6 +132,7 @@ export default function Dashboard({ products }: DashboardProps) {
                             <table className="w-full text-left border-collapse">
                                 <thead>
                                     <tr className="bg-gray-100 border-b">
+                                        <th className="p-3">No</th>
                                         <th className="p-3">Name</th>
                                         <th className="p-3">Price</th>
                                         <th className="p-3">Stock</th>
@@ -134,8 +140,9 @@ export default function Dashboard({ products }: DashboardProps) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {products.data.map(product => (
+                                    {products.data.map((product, index) => (
                                         <tr key={product.id} className="border-b hover:bg-gray-50">
+                                            <td className="p-3">{index + 1}.</td>
                                             <td className="p-3">{product.name}</td>
                                             <td className="p-3">${product.price}</td>
                                             <td className="p-3">{product.stock}</td>
